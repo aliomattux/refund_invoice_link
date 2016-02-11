@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+        <record id="sale_invoice_form" model="ir.ui.view">
+            <field name="name">Sale Invoice Form</field>
+            <field name="model">account.invoice</field>
+	    <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+		<field name="origin" position="replace" >
+		    <field name="origin" attrs="{'invisible': [('sale_order', '!=', False)]}" />
+		</field>
+		<field name="date_invoice" position="before" >
+		    <field name="sale_order" />
+		</field>
+	    </field>
+	</record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,45 @@
+<openerp>
+    <data>
+        <record id="view_account_invoice_customer_search" model="ir.ui.view">
+            <field name="name">Invoice customer Search</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="sale_order" />
+                </field>
+            </field>
+        </record>
+
+
+        <record id="customer_invoice_tree" model="ir.ui.view">
+            <field name="name">customer Invoice Tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="sale_order" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_refund_invoice_form" model="ir.ui.view">
+            <field name="name">View Refund Invoice Form</field>
+            <field name="model">account.invoice</field>
+	    <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+		<field name="fiscal_position" position="after">
+		    <newline/>
+		    <field name="refunded" string="Invoice was Refunded"/>
+		</field>
+		<button name="%(account.action_account_invoice_refund)d" position="replace">
+			<button name="%(account.action_account_invoice_refund)d" type='action' string='Refund Invoice' groups="base.group_user" attrs="{'invisible': ['|',('refunded', '=', True),('state', '=', 'cancel')]}"/>
+		</button>
+		<button name="invoice_print" position="replace" >
+		    <button string="View Refund" name="action_view_refund" attrs="{'invisible': [('refunded', '=', False)]}" />
+		</button>
+	    </field>
+	</record>
+
+    </data>
+</openerp>
