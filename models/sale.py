@@ -27,6 +27,9 @@ class SaleOrder(osv.osv):
 
 #            inv_ids += [invoice.id if invoice.type == 'out_refund' for invoice in so.invoice_ids]
         #choose the view_mode accordingly
+	if not inv_ids:
+	    return True
+
         if len(inv_ids)>1:
             result['domain'] = "[('id','in',["+','.join(map(str, inv_ids))+"])]"
         else:
